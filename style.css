@@ -1,0 +1,440 @@
+:root {
+    --vermelho: #e74c3c;
+    --amarelo: #f1c40f;
+    --laranja: #e67e22;
+    --verde: #2ecc71;
+    --verde-escuro: #27ae60;
+    --branco: #ffffff;
+    --cinza: #95a5a6;
+    --cinza-escuro: #7f8c8d;
+    --sombra: rgba(0, 0, 0, 0.2);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
+}
+
+body {
+    background: url('https://images.unsplash.com/photo-1490645935967-10de6ba17061?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') no-repeat center center fixed;
+    background-size: cover;
+    color: white;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Estilos para o logo */
+.logo-container {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    z-index: 10;
+}
+
+.site-logo {
+    height: 60px;
+    width: auto;
+    transition: transform 0.3s;
+}
+
+.site-logo:hover {
+    transform: scale(1.05);
+}
+
+header {
+    background: linear-gradient(135deg, var(--verde), var(--verde-escuro));
+    padding: 25px 20px 20px;
+    margin-bottom: 30px;
+    box-shadow: 0 4px 12px var(--sombra);
+    text-align: center;
+    position: relative;
+}
+
+.header-content {
+    margin-top: 30px;
+}
+
+.site-title {
+    font-size: 2.5rem;
+    margin: 10px 0;
+    color: var(--branco);
+    text-shadow: 2px 2px 4px var(--sombra);
+}
+
+.site-subtitle {
+    font-size: 1.2rem;
+    color: var(--branco);
+    font-weight: bold;
+}
+
+/* Estilos para os dias */
+.days-container {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.day-btn {
+    width: 140px;
+    height: 140px;
+    border: none;
+    border-radius: 15px;
+    font-size: 24px;
+    font-weight: bold;
+    color: var(--branco);
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+    box-shadow: 0 6px 12px var(--sombra);
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    position: relative;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.day-btn:hover:not(.locked) {
+    transform: scale(1.05);
+    box-shadow: 0 8px 16px var(--sombra);
+}
+
+.day-btn.locked {
+    background-color: var(--cinza);
+    cursor: not-allowed;
+    opacity: 0.8;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), var(--bg-image);
+}
+
+.day-btn.locked::after {
+    content: "\f023";
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
+    position: absolute;
+    font-size: 30px;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.day-btn.completed {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), var(--bg-image);
+}
+
+/* Botão de Receitas */
+.recipes-btn-container {
+    text-align: center;
+    margin: 30px 0;
+}
+
+.recipes-btn {
+    display: inline-block;
+    padding: 15px 30px;
+    background-color: var(--laranja);
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 1.1rem;
+    transition: all 0.3s;
+    box-shadow: 0 4px 8px var(--sombra);
+}
+
+.recipes-btn:hover {
+    background-color: var(--vermelho);
+    transform: scale(1.05);
+}
+
+/* Estilos para a barra de pesquisa */
+.search-container {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0 30px;
+}
+
+.search-box {
+    display: flex;
+    width: 100%;
+    max-width: 500px;
+    border-radius: 30px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px var(--sombra);
+}
+
+#searchInput {
+    flex: 1;
+    padding: 15px 20px;
+    border: none;
+    font-size: 1rem;
+    outline: none;
+}
+
+#searchButton {
+    background-color: var(--verde);
+    color: white;
+    border: none;
+    padding: 0 20px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#searchButton:hover {
+    background-color: var(--verde-escuro);
+}
+
+/* Modais */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    z-index: 100;
+    overflow-y: auto;
+}
+
+.modal-content {
+    background-color: white;
+    margin: 5% auto;
+    padding: 25px;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 600px;
+    color: #333;
+    position: relative;
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.3);
+}
+
+.close-btn {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 28px;
+    cursor: pointer;
+    color: var(--vermelho);
+    font-weight: bold;
+}
+
+.challenge-item {
+    margin: 18px 0;
+    padding: 12px;
+    border-bottom: 1px solid #eee;
+    display: flex;
+    align-items: center;
+}
+
+.challenge-item input[type="checkbox"] {
+    margin-right: 15px;
+    transform: scale(1.3);
+    accent-color: var(--verde);
+    cursor: pointer;
+}
+
+/* Modal de Parabéns */
+#congratsModal {
+    display: none;
+    background-color: rgba(0, 0, 0, 0.9);
+}
+
+.congrats-content {
+    background: linear-gradient(135deg, var(--verde), var(--verde-escuro));
+    padding: 40px;
+    border-radius: 15px;
+    text-align: center;
+    max-width: 500px;
+    margin: 10% auto;
+    color: white;
+    box-shadow: 0 0 30px rgba(255, 215, 0, 0.6);
+    animation: pulse 2s infinite;
+}
+
+.congrats-content h2 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    color: var(--amarelo);
+}
+
+.congrats-content p {
+    font-size: 1.3rem;
+    margin: 15px 0;
+}
+
+#closeCongrats {
+    background-color: var(--amarelo);
+    color: #333;
+    border: none;
+    padding: 12px 25px;
+    font-size: 1.1rem;
+    border-radius: 8px;
+    margin-top: 20px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s;
+}
+
+#closeCongrats:hover {
+    transform: scale(1.05);
+    background-color: var(--laranja);
+    color: white;
+}
+
+/* Estilos para a página de receitas */
+.recipes-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.recipe-card {
+    background-color: rgba(255, 255, 255, 0.95);
+    border-radius: 15px;
+    padding: 25px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    transition: transform 0.3s;
+}
+
+.recipe-card:hover {
+    transform: translateY(-5px);
+}
+
+.recipe-title {
+    color: var(--verde-escuro);
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+}
+
+.video-container {
+    position: relative;
+    padding-bottom: 56.25%;
+    height: 0;
+    overflow: hidden;
+    border-radius: 10px;
+    margin: 0 auto;
+}
+
+.video-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+.video-credits {
+    text-align: center;
+    font-style: italic;
+    color: #666;
+    margin: 15px 0 5px;
+    font-size: 0.9rem;
+}
+
+/* Mensagem quando não encontrar resultados */
+.no-results {
+    text-align: center;
+    color: var(--vermelho);
+    font-size: 1.2rem;
+    margin: 40px 0;
+    grid-column: 1 / -1;
+}
+
+.back-btn {
+    display: block;
+    width: fit-content;
+    margin: 40px auto 20px;
+    padding: 12px 25px;
+    background-color: var(--verde);
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 1.1rem;
+    transition: all 0.3s;
+}
+
+.back-btn:hover {
+    background-color: var(--verde-escuro);
+    transform: scale(1.05);
+}
+
+/* Rodapé */
+footer {
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 20px;
+    margin-top: auto;
+    border-top: 2px solid var(--verde);
+    text-align: center;
+}
+
+.credits {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-top: 15px;
+}
+
+.credits span {
+    font-weight: bold;
+    color: var(--amarelo);
+}
+
+/* Animações */
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.03); }
+    100% { transform: scale(1); }
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .site-title {
+        font-size: 2rem;
+    }
+    
+    .day-btn {
+        width: 120px;
+        height: 120px;
+        font-size: 20px;
+    }
+    
+    .recipes-container {
+        grid-template-columns: 1fr;
+    }
+    
+    .site-logo {
+        height: 50px;
+    }
+}
+
+@media (max-width: 480px) {
+    .site-title {
+        font-size: 1.8rem;
+    }
+    
+    .day-btn {
+        width: 100px;
+        height: 100px;
+    }
+    
+    .credits {
+        flex-direction: column;
+        gap: 8px;
+    }
+    
+    .header-content {
+        margin-top: 40px;
+    }
+}
